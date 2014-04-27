@@ -144,6 +144,7 @@ void Cards::enemyInit(int num, int _x, int _y){
     float _h = unitSize;
     this->setPosition(Point(x + _w *.25, y + _h*.25));
     this->runAction(Sequence::create(
+                        DelayTime::create(.02),
                         Spawn::create(
                             ScaleTo::create(.08, 1.2f, 1.2f),
                             MoveTo::create(.08, Point(x - _w *.1, y - _w *.1)), NULL),
