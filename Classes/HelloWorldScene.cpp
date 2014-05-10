@@ -1,5 +1,5 @@
 #include "HelloWorldScene.h"
-#include "cocos-ext.h"
+#include "extensions/cocos-ext.h"
 USING_NS_CC_EXT;
 
 int columns = 4;
@@ -25,7 +25,7 @@ bool HelloWorld::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !LayerColor::initWithColor(Color4B(255,255,0,0)) )
+    if ( !Layer::init() )
     {
         return false;
     }
@@ -42,9 +42,9 @@ bool HelloWorld::init()
                                            "CloseNormal.png",
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-    
-	closeItem->setPosition(Point(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+    closeItem->setScale(2);
+	closeItem->setPosition(Point(origin.x + visibleSize.width - closeItem->getBoundingBox().size.width/2 ,
+                                origin.y + closeItem->getBoundingBox().size.height/2));
 
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
@@ -63,7 +63,7 @@ bool HelloWorld::init()
     
     ControlButton* button = ControlButton::create(backgroundButton);
     button->setBackgroundSpriteForState(backgroundHighlightedButton, Control::State::HIGH_LIGHTED);
-    button->setTitleForState("a", Control::State::NORMAL);
+    button->setTitleForState("R", Control::State::NORMAL);
     button->setTitleForState("hi", Control::State::HIGH_LIGHTED);
     button->setAdjustBackgroundImage(false);
     
@@ -71,7 +71,7 @@ bool HelloWorld::init()
     
     button->setPosition(visibleSize.width-150, visibleSize.height-150);
     this->addChild(button);
-
+    /*
     btn1->setPosition(Point(40, visibleSize.height-150));
     btn2->setPosition(Point(110,visibleSize.height-150));
     btn3->setPosition(Point(75,visibleSize.height-115));
@@ -81,7 +81,7 @@ bool HelloWorld::init()
     addChild(btn2);
     addChild(btn3);
     addChild(btn4);
-    
+    */
     
     initData();
     
@@ -182,7 +182,6 @@ void HelloWorld::recordData(){
 }
 
 //求出单元格的宽度和高度
-int unitSize = (Director::getInstance()->getVisibleSize().width-28)/4;
 void HelloWorld::autoCreateCardNumber(){
     int i = CCRANDOM_0_1()*4;
     int j = CCRANDOM_0_1()*4;
@@ -226,7 +225,7 @@ bool HelloWorld::onTouchBegan(Touch *touch, Event *event){
 //    touch->getLocationInView();
     firstX = tp.x;
     firstY = tp.y;
-    
+    /*
     Rect rect = btn1->boundingBox();
     if (rect.containsPoint(tp)) {
         if(doLeft2()){
@@ -265,7 +264,7 @@ bool HelloWorld::onTouchBegan(Touch *touch, Event *event){
         }
         doCheckGameOver();
         btnReact = true;
-    }
+    }*/
     return true;
 }
 

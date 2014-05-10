@@ -1,0 +1,5 @@
+proj.android/bin/*
+*.o.d
+*.o
+/tmp
+*.a

@@ -7181,7 +7181,9 @@
 					"\"$(SRCROOT)/../external/freetype2/prebuilt/mac\"",
 					"\"$(SRCROOT)/../external/websockets/prebuilt/mac\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/png/include/mac $(SRCROOT)/../external/tiff/include/mac $(SRCROOT)/../external/webp/include/mac $(SRCROOT)/../external/jpeg/include/mac $(SRCROOT)/../external/freetype2/include/mac $(SRCROOT)/../external/websockets/include/mac $(SRCROOT)/../external/glfw3/include/mac $(SRCROOT)/../cocos/2d/platform/mac $(SRCROOT)/../cocos/2d/platform/desktop";
+				VALID_ARCHS = "armv6 armv7 i386 x86_64 armv7s";
 			};
 			name = Debug;
 		};
@@ -7207,7 +7209,9 @@
 					"\"$(SRCROOT)/../external/freetype2/prebuilt/mac\"",
 					"\"$(SRCROOT)/../external/websockets/prebuilt/mac\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/png/include/mac $(SRCROOT)/../external/tiff/include/mac $(SRCROOT)/../external/webp/include/mac $(SRCROOT)/../external/jpeg/include/mac $(SRCROOT)/../external/freetype2/include/mac $(SRCROOT)/../external/websockets/include/mac $(SRCROOT)/../external/glfw3/include/mac $(SRCROOT)/../cocos/2d/platform/mac $(SRCROOT)/../cocos/2d/platform/desktop";
+				VALID_ARCHS = "armv6 armv7 i386 x86_64 armv7s";
 			};
 			name = Release;
 		};

@@ -2,7 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
-#include "cocos-ext.h"
+#include "extensions/cocos-ext.h"
 #include "Cards.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -13,7 +13,7 @@ typedef struct POSTION {
 } Position;
 
 
-class HelloWorld : public cocos2d::LayerColor
+class HelloWorld : public cocos2d::Layer
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
