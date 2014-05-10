@@ -2,8 +2,10 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "cocos-ext.h"
 #include "Cards.h"
 USING_NS_CC;
+USING_NS_CC_EXT;
 
 typedef struct POSTION {
     Point fathest;
@@ -33,17 +35,15 @@ private:
     void doCheckGameOver();
     void initEvents();
     void initData();
+    void reverseTiles(Ref*ref, Control::EventType e);
     virtual bool onTouchBegan(Touch *touch, Event *event);
     virtual void onTouchEnded(Touch *touch, Event *event);
     void createCardSprite(cocos2d::Size size);
-    bool doLeft();
     bool doLeft2();
-    bool doRight();
     bool doRight2();
-    bool doUp();
     bool doUp2();
-    bool doDown();
     bool doDown2();
+    void recordData();
     
     // grid
     bool withinBounds(Point cell);
@@ -61,10 +61,13 @@ private:
     Sprite *btn2;
     Sprite *btn3;
     Sprite *btn4;
+    bool canReverse;
     int score;
+    int last_score;
     Label *scoreLabel;
     
     int map[4][4];
+    int last_map[4][4];
 };
 
 #endif // __HELLOWORLD_SCENE_H__

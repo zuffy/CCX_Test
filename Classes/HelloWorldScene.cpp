@@ -1,4 +1,6 @@
 #include "HelloWorldScene.h"
+#include "cocos-ext.h"
+USING_NS_CC_EXT;
 
 int columns = 4;
 int cells = 4;
@@ -53,11 +55,27 @@ bool HelloWorld::init()
     btn2 = Sprite::create("CloseNormal.png");
     btn3 = Sprite::create("CloseNormal.png");
     btn4 = Sprite::create("CloseNormal.png");
+    
+    Scale9Sprite *backgroundButton = Scale9Sprite::create("button.png");
+    backgroundButton->setPreferredSize(Size(81,81));
+    Scale9Sprite *backgroundHighlightedButton = Scale9Sprite::create("buttonHighlighted.png");
+    backgroundHighlightedButton->setPreferredSize(Size(81,81));
+    
+    ControlButton* button = ControlButton::create(backgroundButton);
+    button->setBackgroundSpriteForState(backgroundHighlightedButton, Control::State::HIGH_LIGHTED);
+    button->setTitleForState("a", Control::State::NORMAL);
+    button->setTitleForState("hi", Control::State::HIGH_LIGHTED);
+    button->setAdjustBackgroundImage(false);
+    
+    button->addTargetWithActionForControlEvents(this,  cccontrol_selector(HelloWorld::reverseTiles), Control::EventType::TOUCH_UP_INSIDE );
+    
+    button->setPosition(visibleSize.width-150, visibleSize.height-150);
+    this->addChild(button);
 
-    btn1->setPosition(Point(40,550));
-    btn2->setPosition(Point(110,550));
-    btn3->setPosition(Point(75,585));
-    btn4->setPosition(Point(75,515));
+    btn1->setPosition(Point(40, visibleSize.height-150));
+    btn2->setPosition(Point(110,visibleSize.height-150));
+    btn3->setPosition(Point(75,visibleSize.height-115));
+    btn4->setPosition(Point(75,visibleSize.height-185));
     
     addChild(btn1);
     addChild(btn2);
@@ -65,16 +83,20 @@ bool HelloWorld::init()
     addChild(btn4);
     
     
-    createCardSprite(visibleSize);
     initData();
+    
+    createCardSprite(visibleSize);
+    
     initEvents();
     
-    //autoCreateCardNumber();
-    //autoCreateCardNumber();
-    addCardAt(0,0,2);
-    addCardAt(0,1,2);
-    addCardAt(0,2,4);
-    addCardAt(0,3,2);
+    autoCreateCardNumber();
+    autoCreateCardNumber();
+    
+    recordData();
+//    addCardAt(0,0,2);
+//    addCardAt(0,1,2);
+//    addCardAt(0,2,4);
+//    addCardAt(0,3,2);
     
     //加入“分数”label
     auto labelTTFCardNumberName = LabelTTF::create("SCORE","HiraKakuProN-W6",40);
@@ -86,10 +108,27 @@ bool HelloWorld::init()
     scoreLabel->setPosition(Point(visibleSize.width*.8, visibleSize.height-50));
     addChild(scoreLabel);
     
+    canReverse = false;
+    
     return true;
 }
 
-
+void HelloWorld::reverseTiles(Ref*ref, Control::EventType e){
+    if (!canReverse) {
+        return;
+    }
+    for(int i=0; i<4; i++)
+    {
+        for(int j=0; j<4; j++)
+        {
+            map[i][j] = last_map[i][j];
+        }
+    }
+    createCardSprite(Size(0,0));
+    score = last_score;
+    scoreLabel->setString(String::createWithFormat("%i",score)->getCString());
+    canReverse = false;
+}
 //创建卡片
 void HelloWorld::createCardSprite(cocos2d::Size size)
 {
@@ -99,8 +138,16 @@ void HelloWorld::createCardSprite(cocos2d::Size size)
     {
         for(int j=0; j<4; j++)
         {
-            //Cards* card = Cards::CreateSprite(0, unitSize, unitSize, unitSize*i+20, unitSize*j+50);
+            Cards* card = cardArr[i][j];
+            if (nullptr != card) {
+                card->removeFromParentAndCleanup(true);
+            }
             cardArr[i][j] = nullptr;
+            if (map[i][j]>0) {
+                card = Cards::CreateSprite(map[i][j], Point(i, j));
+                cardArr[i][j] = card;
+                addChild(card);
+            }
         }
     }
 }
@@ -116,6 +163,22 @@ void HelloWorld::initData()
             map[i][j] = 0;
         }
     }
+}
+
+void HelloWorld::recordData(){
+    for(int i=0; i<4; i++)
+    {
+        for(int j=0; j<4; j++)
+        {
+            last_map[i][j] = map[i][j];
+            if(cardArr[i][j] != nullptr){
+                map[i][j] = cardArr[i][j]->getNumber();
+            }else{
+                map[i][j] = 0;
+            }
+        }
+    }
+    canReverse = true;
 }
 
 //求出单元格的宽度和高度
@@ -168,6 +231,7 @@ bool HelloWorld::onTouchBegan(Touch *touch, Event *event){
     if (rect.containsPoint(tp)) {
         if(doLeft2()){
             autoCreateCardNumber();
+            recordData();
         }
         doCheckGameOver();
         btnReact = true;
@@ -177,6 +241,7 @@ bool HelloWorld::onTouchBegan(Touch *touch, Event *event){
     if (rect.containsPoint(tp)) {
         if(doRight2()){
             autoCreateCardNumber();
+            recordData();
         }
         doCheckGameOver();
         btnReact = true;
@@ -186,6 +251,7 @@ bool HelloWorld::onTouchBegan(Touch *touch, Event *event){
     if (rect.containsPoint(tp)) {
         if(doUp2()){
             autoCreateCardNumber();
+            recordData();
         }
         doCheckGameOver();
         btnReact = true;
@@ -195,6 +261,7 @@ bool HelloWorld::onTouchBegan(Touch *touch, Event *event){
     if (rect.containsPoint(tp)) {
         if(doDown2()){
             autoCreateCardNumber();
+            recordData();
         }
         doCheckGameOver();
         btnReact = true;
@@ -219,6 +286,7 @@ void HelloWorld::onTouchEnded(Touch *touch, Event *event){
             //向左
             if(doLeft2()){
                 autoCreateCardNumber();
+                recordData();
             }
             doCheckGameOver();
         }
@@ -227,6 +295,7 @@ void HelloWorld::onTouchEnded(Touch *touch, Event *event){
             //向右
             if(doRight2()){
                 autoCreateCardNumber();
+                recordData();
             }
             doCheckGameOver();
         }
@@ -240,6 +309,7 @@ void HelloWorld::onTouchEnded(Touch *touch, Event *event){
             //向下
             if(doDown2()){
                 autoCreateCardNumber();
+                recordData();
             }
             doCheckGameOver();
         }
@@ -248,6 +318,7 @@ void HelloWorld::onTouchEnded(Touch *touch, Event *event){
             //向上
             if(doUp2()){
                 autoCreateCardNumber();
+                recordData();
             }
             doCheckGameOver();
         }
@@ -298,10 +369,11 @@ bool HelloWorld::doLeft2(){
                     mg.m = next;
                     merged->mg = mg;
                     merged->isMerging = true;
-                    cardArr[merged->getX()][merged->getY()]->removeFromParent();
+                    float aniDelay = c->updatePosition(p.next,true);
+                    cardArr[merged->getX()][merged->getY()]->mergeRemove(aniDelay);
                     cardArr[merged->getX()][merged->getY()] = merged;
-                    cardArr[c->getX()][c->getY()] = nullptr;
-                    c->updatePosition(p.next,true);
+                    cardArr[x][y] = nullptr;
+                    
                     addChild(merged);
                     /*
                     // Update the score
@@ -309,6 +381,7 @@ bool HelloWorld::doLeft2(){
                     
                     // The mighty 2048 tile
                     //if (merged.value == 2048) self.won = true;
+                    last_score = score;
                     score += merged->getNumber();
                     scoreLabel->setString(String::createWithFormat("%i",score)->getCString());
                     
@@ -341,10 +414,10 @@ bool HelloWorld::doRight2(){
                     mg.m = next;
                     merged->mg = mg;
                     next->isMerging = true;
-                    cardArr[merged->getX()][merged->getY()]->removeFromParent();                    
+                    float aniDelay = c->updatePosition(p.next,true);
+                    cardArr[merged->getX()][merged->getY()]->mergeRemove(aniDelay);
                     cardArr[merged->getX()][merged->getY()] = merged;
-                    cardArr[c->getX()][c->getY()] = nullptr;
-                    c->updatePosition(p.next, true);
+                    cardArr[x][y] = nullptr;
                     addChild(merged);
                     /*
                      // Update the score
@@ -352,6 +425,7 @@ bool HelloWorld::doRight2(){
                     
                     // The mighty 2048 tile
                     //if (merged.value == 2048) self.won = true;
+                    last_score = score;
                     score += merged->getNumber();
                     scoreLabel->setString(String::createWithFormat("%i",score)->getCString());
                     isdo = true;
@@ -382,10 +456,10 @@ bool HelloWorld::doDown2(){
                     mg.m = next;
                     merged->mg = mg;
                     merged->isMerging = true;
-                    cardArr[merged->getX()][merged->getY()]->removeFromParent();
+                    float aniDelay = c->updatePosition(p.next,true);
+                    cardArr[merged->getX()][merged->getY()]->mergeRemove(aniDelay);
                     cardArr[merged->getX()][merged->getY()] = merged;
-                    cardArr[c->getX()][c->getY()] = nullptr;
-                    c->updatePosition(p.next,true);
+                    cardArr[x][y] = nullptr;
                     addChild(merged);
                     /*
                      // Update the score
@@ -393,6 +467,7 @@ bool HelloWorld::doDown2(){
                     
                     // The mighty 2048 tile
                     //if (merged.value == 2048) self.won = true;
+                    last_score = score;
                     score += merged->getNumber();
                     scoreLabel->setString(String::createWithFormat("%i",score)->getCString());
                     isdo = true;
@@ -423,10 +498,10 @@ bool HelloWorld::doUp2(){
                     mg.m = next;
                     merged->mg = mg;
                     merged->isMerging = true;
-                    cardArr[merged->getX()][merged->getY()]->removeFromParent();
+                    float aniDelay = c->updatePosition(p.next,true);
+                    cardArr[merged->getX()][merged->getY()]->mergeRemove(aniDelay);
                     cardArr[merged->getX()][merged->getY()] = merged;
-                    cardArr[c->getX()][c->getY()] = nullptr;
-                    c->updatePosition(p.next,true);
+                    cardArr[x][y] = nullptr;
                     addChild(merged);
                     /*
                      // Update the score
@@ -434,6 +509,7 @@ bool HelloWorld::doUp2(){
                     
                     // The mighty 2048 tile
                     //if (merged.value == 2048) self.won = true;
+                    last_score = score;
                     score += merged->getNumber();
                     scoreLabel->setString(String::createWithFormat("%i",score)->getCString());
                     isdo = true;
@@ -469,129 +545,6 @@ Cards* HelloWorld::getTile(int x, int y){
     return cardArr[x][y];
 }
 
-
-bool HelloWorld::doLeft(){
-    bool isdo = false;
-    for (int y = 0; y < 4; y++) {
-        for (int x = 0; x < 4; x++) {
-            
-            for (int x1 = x + 1; x1 < 4; x1++) {
-                if (this->isCellOcuppiedAt(x, y)) {
-                    Point o_pt = cardArr[x][y]->getPosition();
-                    
-                        if (cardArr[x][y]->getNumber() <= 0) {
-                            
-//                            cardArr[x1][y]->runAction(Sequence::create(MoveTo::create(move_time, cardArr[x][y]->getPosition()), CallFunc::create([&](Node* pSender){
-//                            }), NULL));
-
-                            cardArr[x][y]->setNumber(cardArr[x1][y]->getNumber());
-                            cardArr[x1][y]->setNumber(0);
-                            x--;
-                            isdo = true;
-                        }else if(cardArr[x][y]->getNumber() == cardArr[x1][y]->getNumber()){
-                            cardArr[x][y]->setNumber(cardArr[x][y]->getNumber()*2);
-                            cardArr[x1][y]->setNumber(0);
-                            score += cardArr[x][y]->getNumber();
-                            scoreLabel->setString(String::createWithFormat("%i",score)->getCString());
-                            isdo = true;
-                        }
-                        break;
-                    
-                }
-            }
-            
-        }
-    }
-    return isdo;
-}
-
-bool HelloWorld::doRight(){
-    bool isdo = false;
-    for (int y = 0; y < 4; y++) {
-        for (int x = 3; x >= 0; x--) {
-            
-            for (int x1 = x - 1; x1 >= 0; x1--) {
-                if (cardArr[x1][y]->getNumber() > 0) {
-                    if (cardArr[x][y]->getNumber() <= 0) {
-                        cardArr[x][y]->setNumber(cardArr[x1][y]->getNumber());
-                        cardArr[x1][y]->setNumber(0);
-                        
-                        x++;
-                        isdo = true;
-                    }else if(cardArr[x][y]->getNumber() == cardArr[x1][y]->getNumber()){
-                        cardArr[x][y]->setNumber(cardArr[x][y]->getNumber()*2);
-                        cardArr[x1][y]->setNumber(0);
-                        score += cardArr[x][y]->getNumber();
-                        scoreLabel->setString(String::createWithFormat("%i",score)->getCString());
-                        isdo = true;
-                    }
-                    break;
-                }
-            }
-            
-        }
-    }
-    return isdo;
-}
-
-bool HelloWorld::doUp(){
-    bool isdo = false;
-    for (int x = 0; x < 4; x++) {
-        for (int y = 3; y >= 0; y--) {
-            
-            for (int y1 = y-1; y1 >=0; y1--) {
-                if (cardArr[x][y1]->getNumber() > 0) {
-                    if (cardArr[x][y]->getNumber() <= 0) {
-                        cardArr[x][y]->setNumber(cardArr[x][y1]->getNumber());
-                        cardArr[x][y1]->setNumber(0);
-                        
-                        y++;
-                        isdo = true;
-                    }else if(cardArr[x][y]->getNumber() == cardArr[x][y1]->getNumber()){
-                        cardArr[x][y]->setNumber(cardArr[x][y]->getNumber()*2);
-                        cardArr[x][y1]->setNumber(0);
-                        score += cardArr[x][y]->getNumber();
-                        scoreLabel->setString(String::createWithFormat("%i",score)->getCString());
-                        isdo = true;
-                    }
-                    break;
-                }
-            }
-            
-        }
-    }
-    return isdo;
-}
-
-bool HelloWorld::doDown(){
-    bool isdo = false;
-    for (int x = 0; x < 4; x++) {
-        for (int y = 0; y < 4; y++) {
-            
-            for (int y1 = y + 1; y1 < 4; y1++) {
-                if (cardArr[x][y1]->getNumber() > 0) {
-                    if (cardArr[x][y]->getNumber() <= 0) {
-                        cardArr[x][y]->setNumber(cardArr[x][y1]->getNumber());
-                        cardArr[x][y1]->setNumber(0);
-                        
-                        y--;
-                        isdo = true;
-                    }else if(cardArr[x][y]->getNumber() == cardArr[x][y1]->getNumber()){
-                        cardArr[x][y]->setNumber(cardArr[x][y]->getNumber()*2);
-                        cardArr[x][y1]->setNumber(0);
-                        score += cardArr[x][y]->getNumber();
-                        scoreLabel->setString(String::createWithFormat("%i",score)->getCString());
-                        isdo = true;
-                    }
-                    break;
-                }
-            }
-            
-        }
-    }
-    return isdo;
-}
-
 //判断游戏是否还能继续
 void HelloWorld::doCheckGameOver(){
     bool isGameOver = true;
@@ -611,6 +564,7 @@ void HelloWorld::doCheckGameOver(){
     if (isGameOver) {
         //游戏结束，重新开始游戏
         log("游戏结束");
+        initData();
         Director::getInstance()->replaceScene(TransitionFade::create(1, HelloWorld::createScene()));
     }
 }

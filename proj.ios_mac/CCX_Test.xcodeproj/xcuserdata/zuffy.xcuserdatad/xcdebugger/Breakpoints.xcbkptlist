@@ -8,24 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../Classes/HelloWorldScene.cpp"
-         timestampString = "420303157.200619"
+         timestampString = "421397382.57522"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "339"
-         endingLineNumber = "339"
-         landmarkName = "HelloWorld::doRight2()"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../Classes/HelloWorldScene.cpp"
-         timestampString = "420301755.339407"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "286"
-         endingLineNumber = "286"
+         startingLineNumber = "392"
+         endingLineNumber = "392"
          landmarkName = "HelloWorld::doLeft2()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,12 +21,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../Classes/HelloWorldScene.cpp"
-         timestampString = "420303157.200619"
+         timestampString = "421397382.57522"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "329"
-         endingLineNumber = "329"
-         landmarkName = "HelloWorld::doRight2()"
+         startingLineNumber = "337"
+         endingLineNumber = "337"
+         landmarkName = "HelloWorld::cellAvailable(Point cell)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -47,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../Classes/HelloWorldScene.cpp"
-         timestampString = "420301755.339407"
+         timestampString = "421397382.57522"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "294"
-         endingLineNumber = "294"
+         startingLineNumber = "381"
+         endingLineNumber = "381"
          landmarkName = "HelloWorld::doLeft2()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,12 +47,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../Classes/HelloWorldScene.cpp"
-         timestampString = "420301755.339407"
+         timestampString = "421397382.57522"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "290"
-         endingLineNumber = "290"
-         landmarkName = "HelloWorld::doLeft2()"
+         startingLineNumber = "345"
+         endingLineNumber = "345"
+         landmarkName = "HelloWorld::checkfathest(Point cell, Point dir)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -73,12 +60,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../Classes/HelloWorldScene.cpp"
-         timestampString = "420301755.339407"
+         timestampString = "421397382.57522"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "296"
-         endingLineNumber = "296"
-         landmarkName = "HelloWorld::doLeft2()"
+         startingLineNumber = "341"
+         endingLineNumber = "341"
+         landmarkName = "HelloWorld::checkfathest(Point cell, Point dir)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -86,12 +73,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../Classes/HelloWorldScene.cpp"
-         timestampString = "420303157.200619"
+         timestampString = "421397382.57522"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "452"
-         endingLineNumber = "452"
-         landmarkName = "HelloWorld::moveTile(Cards *tile, Point pos)"
+         startingLineNumber = "347"
+         endingLineNumber = "347"
+         landmarkName = "HelloWorld::checkfathest(Point cell, Point dir)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -99,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../Classes/HelloWorldScene.cpp"
-         timestampString = "420303157.200619"
+         timestampString = "421397382.57522"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "410"
-         endingLineNumber = "410"
+         startingLineNumber = "507"
+         endingLineNumber = "507"
          landmarkName = "HelloWorld::doUp2()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,12 +99,38 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../Classes/HelloWorldScene.cpp"
-         timestampString = "420303157.200619"
+         timestampString = "421397382.57522"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "369"
-         endingLineNumber = "369"
+         startingLineNumber = "464"
+         endingLineNumber = "464"
          landmarkName = "HelloWorld::doDown2()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../Classes/HelloWorldScene.cpp"
+         timestampString = "421397382.57522"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "422"
+         endingLineNumber = "422"
+         landmarkName = "HelloWorld::doRight2()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../Classes/HelloWorldScene.cpp"
+         timestampString = "421397382.57522"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "359"
+         endingLineNumber = "359"
+         landmarkName = "HelloWorld::doLeft2()"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

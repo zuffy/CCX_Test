@@ -36,10 +36,11 @@ public:
     Point prevPos;
     void setNumber(int num);
     int getNumber();
-    
-    void updatePosition(Point pt, bool removed = false);
+    void mergeRemove(float aniDelay);
+    float updatePosition(Point pt, bool removed = false);
     void animationStop(Object *sender);
     void genAnimated(Object *sender);
+    void getToOriginalStat();
     int getX();
     int getY();
     
