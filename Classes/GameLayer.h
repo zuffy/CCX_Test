@@ -1,5 +1,5 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __GAMELAYER_SCENE_H__
+#define __GAMELAYER_SCENE_H__
 
 #include "cocos2d.h"
 #include "extensions/cocos-ext.h"
@@ -13,20 +13,20 @@ typedef struct POSTION {
 } Position;
 
 
-class HelloWorld : public cocos2d::Layer
+class GameLayer : public cocos2d::Layer
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
-
+    
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();  
+    virtual bool init();
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
     
     // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(GameLayer);
     
 public:
     
@@ -70,4 +70,4 @@ private:
     int last_map[4][4];
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+#endif // __GAMELAYER_SCENE_H__

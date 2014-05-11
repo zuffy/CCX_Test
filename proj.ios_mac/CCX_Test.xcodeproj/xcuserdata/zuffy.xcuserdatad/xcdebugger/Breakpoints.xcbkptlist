@@ -25,9 +25,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "337"
-         endingLineNumber = "337"
-         landmarkName = "HelloWorld::cellAvailable(Point cell)"
-         landmarkType = "5">
+         endingLineNumber = "337">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -51,9 +49,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "345"
-         endingLineNumber = "345"
-         landmarkName = "HelloWorld::checkfathest(Point cell, Point dir)"
-         landmarkType = "5">
+         endingLineNumber = "345">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -64,9 +60,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "341"
-         endingLineNumber = "341"
-         landmarkName = "HelloWorld::checkfathest(Point cell, Point dir)"
-         landmarkType = "5">
+         endingLineNumber = "341">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -129,9 +123,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "359"
-         endingLineNumber = "359"
-         landmarkName = "HelloWorld::doLeft2()"
-         landmarkType = "5">
+         endingLineNumber = "359">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

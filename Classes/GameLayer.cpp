@@ -1,27 +1,27 @@
-#include "HelloWorldScene.h"
+#include "GameLayer.h"
 #include "extensions/cocos-ext.h"
 USING_NS_CC_EXT;
 
 int columns = 4;
 int cells = 4;
 
-Scene* HelloWorld::createScene()
+Scene* GameLayer::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = HelloWorld::create();
-
+    auto layer = GameLayer::create();
+    
     // add layer as a child to scene
     scene->addChild(layer);
-
+    
     // return the scene
     return scene;
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool GameLayer::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -31,57 +31,38 @@ bool HelloWorld::init()
     }
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    Point origin = Director::getInstance()->getVisibleOrigin();
-
+    // Point origin = Director::getInstance()->getVisibleOrigin();
+    
+    timeval tv;
+    gettimeofday(&tv, NULL);
+    //都转化为毫秒
+    unsigned long reed = tv.tv_sec*1000+tv.tv_usec/1000;
+    //srand()中传入一个随机数种子
+    srand(reed);
+    
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-    closeItem->setScale(2);
-	closeItem->setPosition(Point(origin.x + visibleSize.width - closeItem->getBoundingBox().size.width/2 ,
-                                origin.y + closeItem->getBoundingBox().size.height/2));
-
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Point::ZERO);
-    this->addChild(menu, 1);
+    auto background = Sprite::createWithSpriteFrameName("game_scene_bg.png");
+    background->setAnchorPoint(Point(0,0));
+    this->addChild(background, 0, 0);
     
     btn1 = Sprite::create("CloseNormal.png");
     btn2 = Sprite::create("CloseNormal.png");
     btn3 = Sprite::create("CloseNormal.png");
     btn4 = Sprite::create("CloseNormal.png");
     
-    Scale9Sprite *backgroundButton = Scale9Sprite::create("button.png");
-    backgroundButton->setPreferredSize(Size(81,81));
-    Scale9Sprite *backgroundHighlightedButton = Scale9Sprite::create("buttonHighlighted.png");
-    backgroundHighlightedButton->setPreferredSize(Size(81,81));
-    
-    ControlButton* button = ControlButton::create(backgroundButton);
-    button->setBackgroundSpriteForState(backgroundHighlightedButton, Control::State::HIGH_LIGHTED);
-    button->setTitleForState("R", Control::State::NORMAL);
-    button->setTitleForState("hi", Control::State::HIGH_LIGHTED);
-    button->setAdjustBackgroundImage(false);
-    
-    button->addTargetWithActionForControlEvents(this,  cccontrol_selector(HelloWorld::reverseTiles), Control::EventType::TOUCH_UP_INSIDE );
-    
-    button->setPosition(visibleSize.width-150, visibleSize.height-150);
-    this->addChild(button);
     /*
-    btn1->setPosition(Point(40, visibleSize.height-150));
-    btn2->setPosition(Point(110,visibleSize.height-150));
-    btn3->setPosition(Point(75,visibleSize.height-115));
-    btn4->setPosition(Point(75,visibleSize.height-185));
-    
-    addChild(btn1);
-    addChild(btn2);
-    addChild(btn3);
-    addChild(btn4);
-    */
+     btn1->setPosition(Point(40, visibleSize.height-150));
+     btn2->setPosition(Point(110,visibleSize.height-150));
+     btn3->setPosition(Point(75,visibleSize.height-115));
+     btn4->setPosition(Point(75,visibleSize.height-185));
+     
+     addChild(btn1);
+     addChild(btn2);
+     addChild(btn3);
+     addChild(btn4);
+     */
     
     initData();
     
@@ -93,13 +74,13 @@ bool HelloWorld::init()
     autoCreateCardNumber();
     
     recordData();
-//    addCardAt(0,0,2);
-//    addCardAt(0,1,2);
-//    addCardAt(0,2,4);
-//    addCardAt(0,3,2);
+    //    addCardAt(0,0,2);
+    //    addCardAt(0,1,2);
+    //    addCardAt(0,2,4);
+    //    addCardAt(0,3,2);
     
     //加入“分数”label
-    auto labelTTFCardNumberName = LabelTTF::create("SCORE","HiraKakuProN-W6",40);
+    auto labelTTFCardNumberName = LabelTTF::create("SCORE","HiraKakuProN-W6", 32);
     labelTTFCardNumberName->setPosition(Point(visibleSize.width*.25,visibleSize.height-40));
     addChild(labelTTFCardNumberName);
     
@@ -108,12 +89,43 @@ bool HelloWorld::init()
     scoreLabel->setPosition(Point(visibleSize.width*.8, visibleSize.height-50));
     addChild(scoreLabel);
     
+    // add a "close" icon to exit the progress. it's an autorelease object
+    auto closeItem = MenuItemImage::create(
+                                           "CloseNormal.png",
+                                           "CloseSelected.png",
+                                           CC_CALLBACK_1(GameLayer::menuCloseCallback, this));
+    closeItem->setScale(1.5);
+	closeItem->setPosition(Point(20, visibleSize.height-100));
+    
+    // create menu, it's an autorelease object
+    auto menu = Menu::create(closeItem, NULL);
+    menu->setPosition(Point::ZERO);
+    this->addChild(menu, 1);
+    
+    
+    Scale9Sprite *backgroundButton = Scale9Sprite::createWithSpriteFrameName("button.png");
+    backgroundButton->setPreferredSize(Size(50,50));
+    Scale9Sprite *backgroundHighlightedButton = Scale9Sprite::createWithSpriteFrameName("buttonHighlighted.png");
+    backgroundHighlightedButton->setPreferredSize(Size(50,50));
+    
+    ControlButton* button = ControlButton::create(backgroundButton);
+    button->setBackgroundSpriteForState(backgroundHighlightedButton, Control::State::HIGH_LIGHTED);
+    button->setTitleForState("R", Control::State::NORMAL);
+    button->setTitleForState("hi", Control::State::HIGH_LIGHTED);
+    button->setAdjustBackgroundImage(false);
+    button->setTag(15);
+    button->addTargetWithActionForControlEvents(this,  cccontrol_selector(GameLayer::reverseTiles), Control::EventType::TOUCH_UP_INSIDE );
+    
+    button->setPosition(100, visibleSize.height-100);
+    this->addChild(button);
+    
+    
     canReverse = false;
     
     return true;
 }
 
-void HelloWorld::reverseTiles(Ref*ref, Control::EventType e){
+void GameLayer::reverseTiles(Ref*ref, Control::EventType e){
     if (!canReverse) {
         return;
     }
@@ -130,7 +142,7 @@ void HelloWorld::reverseTiles(Ref*ref, Control::EventType e){
     canReverse = false;
 }
 //创建卡片
-void HelloWorld::createCardSprite(cocos2d::Size size)
+void GameLayer::createCardSprite(cocos2d::Size size)
 {
     //求出单元格的宽度和高度
     //4*4的单元格
@@ -153,7 +165,7 @@ void HelloWorld::createCardSprite(cocos2d::Size size)
 }
 
 //创建卡片
-void HelloWorld::initData()
+void GameLayer::initData()
 {
     //4*4的单元格
     for(int i=0; i<4; i++)
@@ -165,7 +177,7 @@ void HelloWorld::initData()
     }
 }
 
-void HelloWorld::recordData(){
+void GameLayer::recordData(){
     for(int i=0; i<4; i++)
     {
         for(int j=0; j<4; j++)
@@ -182,7 +194,7 @@ void HelloWorld::recordData(){
 }
 
 //求出单元格的宽度和高度
-void HelloWorld::autoCreateCardNumber(){
+void GameLayer::autoCreateCardNumber(){
     int i = CCRANDOM_0_1()*4;
     int j = CCRANDOM_0_1()*4;
     
@@ -200,19 +212,19 @@ void HelloWorld::autoCreateCardNumber(){
     }
 }
 
-void HelloWorld::addCardAt(int x, int y, int value){
+void GameLayer::addCardAt(int x, int y, int value){
     Cards* card = Cards::CreateSprite(value, Point(x, y));
     cardArr[x][y] = card;
     addChild(card);
 }
 
 
-void HelloWorld::initEvents(){
+void GameLayer::initEvents(){
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
-    listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
-    listener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
+    listener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(GameLayer::onTouchMoved, this);
+    listener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
@@ -220,59 +232,65 @@ float dirx = 0;
 float diry = 0;
 bool isTouchReacted = false;
 bool btnReact = false;
-bool HelloWorld::onTouchBegan(Touch *touch, Event *event){
+bool GameLayer::onTouchBegan(Touch *touch, Event *event){
     Point tp = touch->getLocation();
-//    touch->getLocationInView();
+    //    touch->getLocationInView();
     firstX = tp.x;
     firstY = tp.y;
+    if (firstY < (this->getChildByTag(15)->getPosition().y - this->getChildByTag(15)->getContentSize().height)) {
+        isTouchReacted = true;
+    }
+    else{
+        isTouchReacted = false;
+    }
     /*
-    Rect rect = btn1->boundingBox();
-    if (rect.containsPoint(tp)) {
-        if(doLeft2()){
-            autoCreateCardNumber();
-            recordData();
-        }
-        doCheckGameOver();
-        btnReact = true;
-    }
-    
-    rect = btn2->boundingBox();
-    if (rect.containsPoint(tp)) {
-        if(doRight2()){
-            autoCreateCardNumber();
-            recordData();
-        }
-        doCheckGameOver();
-        btnReact = true;
-    }
-    
-    rect = btn3->boundingBox();
-    if (rect.containsPoint(tp)) {
-        if(doUp2()){
-            autoCreateCardNumber();
-            recordData();
-        }
-        doCheckGameOver();
-        btnReact = true;
-    }
-    
-    rect = btn4->boundingBox();
-    if (rect.containsPoint(tp)) {
-        if(doDown2()){
-            autoCreateCardNumber();
-            recordData();
-        }
-        doCheckGameOver();
-        btnReact = true;
-    }*/
+     Rect rect = btn1->boundingBox();
+     if (rect.containsPoint(tp)) {
+     if(doLeft2()){
+     autoCreateCardNumber();
+     recordData();
+     }
+     doCheckGameOver();
+     btnReact = true;
+     }
+     
+     rect = btn2->boundingBox();
+     if (rect.containsPoint(tp)) {
+     if(doRight2()){
+     autoCreateCardNumber();
+     recordData();
+     }
+     doCheckGameOver();
+     btnReact = true;
+     }
+     
+     rect = btn3->boundingBox();
+     if (rect.containsPoint(tp)) {
+     if(doUp2()){
+     autoCreateCardNumber();
+     recordData();
+     }
+     doCheckGameOver();
+     btnReact = true;
+     }
+     
+     rect = btn4->boundingBox();
+     if (rect.containsPoint(tp)) {
+     if(doDown2()){
+     autoCreateCardNumber();
+     recordData();
+     }
+     doCheckGameOver();
+     btnReact = true;
+     }*/
     return true;
 }
 
-void HelloWorld::onTouchEnded(Touch *touch, Event *event){
+void GameLayer::onTouchEnded(Touch *touch, Event *event){
     Point pt = touch->getLocation();
     endX = firstX - pt.x;
     endY = firstY - pt.y;
-    if (btnReact) {
+    if (btnReact || !isTouchReacted) {
         btnReact = false;
         return;
     }
@@ -327,16 +345,16 @@ void HelloWorld::onTouchEnded(Touch *touch, Event *event){
 
 float move_time = .25;
 
-bool HelloWorld::withinBounds(Point cell){
+bool GameLayer::withinBounds(Point cell){
     return cell.x >=0 && cell.x < 4 && cell.y >=0 && cell.y < 4;
 }
 
-bool HelloWorld::cellAvailable(Point cell){
+bool GameLayer::cellAvailable(Point cell){
     int x = cell.x, y = cell.y;
     return !isCellOcuppiedAt(x, y);
 }
 
-Position HelloWorld::checkfathest(Point cell, Point dir)
+Position GameLayer::checkfathest(Point cell, Point dir)
 {
     Position p;
     Point prev = Point(0,0), next=cell;
@@ -351,7 +369,7 @@ Position HelloWorld::checkfathest(Point cell, Point dir)
 
 
 
-bool HelloWorld::doLeft2(){
+bool GameLayer::doLeft2(){
     bool isdo = false;
     Point dir = Point(-1, 0);
     for (int y = 0; y < 4; y++) {
@@ -375,8 +393,8 @@ bool HelloWorld::doLeft2(){
                     
                     addChild(merged);
                     /*
-                    // Update the score
-                    self.score += merged.value;*/
+                     // Update the score
+                     self.score += merged.value;*/
                     
                     // The mighty 2048 tile
                     //if (merged.value == 2048) self.won = true;
@@ -396,7 +414,7 @@ bool HelloWorld::doLeft2(){
 }
 
 
-bool HelloWorld::doRight2(){
+bool GameLayer::doRight2(){
     bool isdo = false;
     Point dir = Point(1, 0);
     for (int y = 0; y < 4; y++) {
@@ -438,7 +456,7 @@ bool HelloWorld::doRight2(){
     return isdo;
 }
 
-bool HelloWorld::doDown2(){
+bool GameLayer::doDown2(){
     bool isdo = false;
     Point dir = Point(0, -1);
     for (int x = 0; x < 4; x++) {
@@ -480,7 +498,7 @@ bool HelloWorld::doDown2(){
     return isdo;
 }
 
-bool HelloWorld::doUp2(){
+bool GameLayer::doUp2(){
     bool isdo = false;
     Point dir = Point(0, 1);
     for (int x = 0; x < 4; x++) {
@@ -522,7 +540,7 @@ bool HelloWorld::doUp2(){
     return isdo;
 }
 
-bool HelloWorld::moveTile(Cards *tile, Point pos){
+bool GameLayer::moveTile(Cards *tile, Point pos){
     int ox = tile->pos.x, oy = tile->pos.y, nx = pos.x, ny = pos.y;
     if (ox == nx && oy == ny) {
         return false;
@@ -533,11 +551,11 @@ bool HelloWorld::moveTile(Cards *tile, Point pos){
     return true;
 }
 
-bool HelloWorld::isCellOcuppiedAt(int x, int y){
+bool GameLayer::isCellOcuppiedAt(int x, int y){
     return getTile(x, y) != nullptr;
 }
 
-Cards* HelloWorld::getTile(int x, int y){
+Cards* GameLayer::getTile(int x, int y){
     if (x>3 || x <0 || y>3 || y <0) {
         return nullptr;
     }
@@ -545,7 +563,7 @@ Cards* HelloWorld::getTile(int x, int y){
 }
 
 //判断游戏是否还能继续
-void HelloWorld::doCheckGameOver(){
+void GameLayer::doCheckGameOver(){
     bool isGameOver = true;
     
     for (int y = 0; y < 4; y++) {
@@ -564,22 +582,22 @@ void HelloWorld::doCheckGameOver(){
         //游戏结束，重新开始游戏
         log("游戏结束");
         initData();
-        Director::getInstance()->replaceScene(TransitionFade::create(1, HelloWorld::createScene()));
+        Director::getInstance()->replaceScene(TransitionFade::create(1, GameLayer::createScene()));
     }
 }
 
 
 
 
-void HelloWorld::menuCloseCallback(Ref* pSender)
+void GameLayer::menuCloseCallback(Ref* pSender)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
     return;
 #endif
-
+    
     Director::getInstance()->end();
-
+    
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif

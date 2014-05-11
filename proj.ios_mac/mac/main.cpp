@@ -29,7 +29,7 @@ USING_NS_CC;
 
 int main(int argc, char *argv[])
 {
-    auto view = GLView::createWithRect("Zuffy", Rect(0,0, 480,720));
+    auto view = GLView::createWithRect("Zuffy", Rect(0,0, 320,480));
     Director::getInstance()->setOpenGLView(view);
     AppDelegate app;
     return Application::getInstance()->run();

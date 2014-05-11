@@ -76,10 +76,10 @@ float Cards::updatePosition(Point pt, bool removed){
     this->runAction(sq);
     return time;
 }
-void Cards::genAnimated(Object *sender){
+void Cards::genAnimated(Ref *sender){
     this->isMerging = false;
 }
-void Cards::animationStop(Object *sender){
+void Cards::animationStop(Ref *sender){
     if (this->isAminating) {
         this->isAminating = false;
         this->stopAllActions();
@@ -106,53 +106,53 @@ void Cards::setNumber(int num){
     if(number >= 1024){
         cardNum->setFontSize(40);
     }*/
-    tmp = Sprite::create("pic1.png");
+    tmp = Sprite::createWithSpriteFrameName("pic1.png");
     if(number == 0){
         cardBg->setColor(cocos2d::Color3B(200,190,180));
     }
     if (number == 2) {
         cardBg->setColor(cocos2d::Color3B(240,230,220));
-        tmp = Sprite::create("pic1.png");
+        tmp = Sprite::createWithSpriteFrameName("pic1.png");
     }
     if (number == 4) {
         cardBg->setColor(cocos2d::Color3B(240,220,200));
-        tmp = Sprite::create("pic2.png");
+        tmp = Sprite::createWithSpriteFrameName("pic2.png");
     }
     if (number == 8) {
         cardBg->setColor(cocos2d::Color3B(240,180,120));
-        tmp = Sprite::create("pic3.png");
+        tmp = Sprite::createWithSpriteFrameName("pic3.png");
     }
     if (number == 16) {
         cardBg->setColor(cocos2d::Color3B(240,140,90));
-        tmp = Sprite::create("pic4.png");
+        tmp = Sprite::createWithSpriteFrameName("pic4.png");
     }
     if (number == 32) {
         cardBg->setColor(cocos2d::Color3B(240,120,90));
-        tmp = Sprite::create("pic5.png");
+        tmp = Sprite::createWithSpriteFrameName("pic5.png");
     }
     if (number == 64) {
         cardBg->setColor(cocos2d::Color3B(240,90,60));
-        tmp = Sprite::create("pic6.png");
+        tmp = Sprite::createWithSpriteFrameName("pic6.png");
     }
     if (number == 128) {
         cardBg->setColor(cocos2d::Color3B(240,90,60));
-        tmp = Sprite::create("pic7.png");
+        tmp = Sprite::createWithSpriteFrameName("pic7.png");
     }
     if (number == 256) {
         cardBg->setColor(cocos2d::Color3B(240,200,70));
-        tmp = Sprite::create("pic8.png");
+        tmp = Sprite::createWithSpriteFrameName("pic8.png");
     }
     if (number == 512) {
         cardBg->setColor(cocos2d::Color3B(240,200,70));
-        tmp = Sprite::create("pic9.png");
+        tmp = Sprite::createWithSpriteFrameName("pic9.png");
     }
     if (number == 1024) {
         cardBg->setColor(cocos2d::Color3B(0,130,0));
-        tmp = Sprite::create("pic10.png");
+        tmp = Sprite::createWithSpriteFrameName("pic10.png");
     }
     if (number == 2048) {
         cardBg->setColor(cocos2d::Color3B(0,130,0));
-        tmp = Sprite::create("pic11.png");
+        tmp = Sprite::createWithSpriteFrameName("pic11.png");
     }
     tmp->setPosition(Point(cardBg->getContentSize().width * .5, cardBg->getContentSize().height *.5));
     cardBg->addChild(tmp, 0, 1);
