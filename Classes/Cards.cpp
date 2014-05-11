@@ -48,6 +48,7 @@ void Cards::mergeRemove(float aniDelay){
 void Cards::getToOriginalStat(){
     this->stopAllActions();
     this->setScale(1.0, 1.0);
+    this->isMerging = false;
 }
 
 int getDel(int num){

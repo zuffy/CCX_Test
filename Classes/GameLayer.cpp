@@ -1,9 +1,35 @@
 #include "GameLayer.h"
 #include "extensions/cocos-ext.h"
+#include "SqliteUtil.h"
+#include "ContentValue.h"
+
 USING_NS_CC_EXT;
 
 int columns = 4;
 int cells = 4;
+
+
+int selectCallBack(void * para, int n_column, char ** column_value, char ** column_name )
+{
+    ContentValue* value = (ContentValue *)para;
+    for (int i = 0; i < n_column; i++)
+    {
+        value->setValue(column_name[i],column_value[i]);
+    }
+    return 0;
+}
+int selectAllCallBack(void * para, int n_column, char ** column_value, char ** column_name )
+{
+    list<ContentValue*>* value = (list<ContentValue*>*)para;
+    ContentValue* raw = new ContentValue();
+    for (int i = 0; i < n_column; i++)
+    {
+        raw->setValue(column_name[i],column_value[i]);
+    }
+    value->push_back(raw);
+    return 0;
+}
+
 
 Scene* GameLayer::createScene()
 {
@@ -29,7 +55,7 @@ bool GameLayer::init()
     {
         return false;
     }
-    
+    content = new ContentValue();
     Size visibleSize = Director::getInstance()->getVisibleSize();
     // Point origin = Director::getInstance()->getVisibleOrigin();
     
@@ -164,9 +190,39 @@ void GameLayer::createCardSprite(cocos2d::Size size)
     }
 }
 
+bool GameLayer::checkTable()
+{
+    if (SqliteUtil::getInstance()->usable) {
+        if(!SqliteUtil::getInstance()->tableIsExist(this->content->SQL_TABLE)){
+            SqliteUtil::getInstance()->createTable(this->content->create_table.c_str());
+        }
+        return true;
+    }
+    return false;
+}
+
+int GameLayer::selectAll(ContentValue * para, int n_column, char ** column_value, char ** column_name)
+{
+    list<ContentValue*>* value = (list<ContentValue*>*)para;
+    ContentValue* raw = new ContentValue();
+    for (int i = 0; i < n_column; i++)
+    {
+        raw->setValue(column_name[i],column_value[i]);
+    }
+    value->push_back(raw);
+    return 0;
+}
+
 //创建卡片
 void GameLayer::initData()
 {
+    bool isGetTable = checkTable();
+    if (isGetTable) {
+        SqliteUtil::getInstance()->insert(this->content->SQL_TABLE, this->content);
+        SqliteUtil::getInstance()->select(this->content->SQL_TABLE, this->content, "ID", "1");
+    }
+    
+    CCLOG("mzh score:%d", this->content->score);
     //4*4的单元格
     for(int i=0; i<4; i++)
     {

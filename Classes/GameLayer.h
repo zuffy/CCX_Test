@@ -2,8 +2,11 @@
 #define __GAMELAYER_SCENE_H__
 
 #include "cocos2d.h"
+#include "ContentValue.h"
 #include "extensions/cocos-ext.h"
 #include "Cards.h"
+#include <string>
+
 USING_NS_CC;
 USING_NS_CC_EXT;
 
@@ -55,6 +58,12 @@ private:
     void addCardAt(int x, int y, int value);
     
 private:
+    ContentValue *content;
+    list<ContentValue*>* values;
+    
+    bool checkTable();
+    
+    static int selectAll(ContentValue * para, int n_column, char ** column_value, char ** column_name );
     Cards* cardArr[4][4];
     int firstX,firstY,endX,endY;
     Sprite *btn1;

@@ -20,6 +20,14 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		3E2F6EF7191FA8B400B688C4 /* SqliteUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F6EF5191FA8B400B688C4 /* SqliteUtil.cpp */; };
+		3E2F6EF8191FA8B400B688C4 /* SqliteUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F6EF5191FA8B400B688C4 /* SqliteUtil.cpp */; };
+		3E2F6EFE191FAA2F00B688C4 /* shell.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F6EFA191FAA2F00B688C4 /* shell.c */; };
+		3E2F6EFF191FAA2F00B688C4 /* shell.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F6EFA191FAA2F00B688C4 /* shell.c */; };
+		3E2F6F00191FAA2F00B688C4 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F6EFB191FAA2F00B688C4 /* sqlite3.c */; };
+		3E2F6F01191FAA2F00B688C4 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F6EFB191FAA2F00B688C4 /* sqlite3.c */; };
+		3E2F6F04191FAD9F00B688C4 /* ContentValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F6F02191FAD9F00B688C4 /* ContentValue.cpp */; };
+		3E2F6F05191FAD9F00B688C4 /* ContentValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F6F02191FAD9F00B688C4 /* ContentValue.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
@@ -244,6 +252,14 @@
 		1D6058910D05DD3D006BFB54 /* CCX_Test iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CCX_Test iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3E2F6EF5191FA8B400B688C4 /* SqliteUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SqliteUtil.cpp; path = ../Classes/SqliteUtil.cpp; sourceTree = "<group>"; };
+		3E2F6EF6191FA8B400B688C4 /* SqliteUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SqliteUtil.h; path = ../Classes/SqliteUtil.h; sourceTree = "<group>"; };
+		3E2F6EFA191FAA2F00B688C4 /* shell.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shell.c; sourceTree = "<group>"; };
+		3E2F6EFB191FAA2F00B688C4 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		3E2F6EFC191FAA2F00B688C4 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		3E2F6EFD191FAA2F00B688C4 /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
+		3E2F6F02191FAD9F00B688C4 /* ContentValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ContentValue.cpp; path = ../Classes/ContentValue.cpp; sourceTree = "<group>"; };
+		3E2F6F03191FAD9F00B688C4 /* ContentValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContentValue.h; path = ../Classes/ContentValue.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -367,6 +383,7 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3E2F6EF9191FAA2F00B688C4 /* sqlite */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				8CABEFD3191F2C48000292F3 /* MainMenuScene.cpp */,
@@ -379,6 +396,9 @@
 				8CE146F0191F315E00D26EDC /* LoadingScene.h */,
 				8CCC1A32191F742C0051A38F /* GameLayer.cpp */,
 				8CCC1A33191F742C0051A38F /* GameLayer.h */,
+				3E2F6EF5191FA8B400B688C4 /* SqliteUtil.cpp */,
+				3E2F6EF6191FA8B400B688C4 /* SqliteUtil.h */,
+				3E2F6F06191FADA900B688C4 /* Data */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -444,6 +464,26 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3E2F6EF9191FAA2F00B688C4 /* sqlite */ = {
+			isa = PBXGroup;
+			children = (
+				3E2F6EFA191FAA2F00B688C4 /* shell.c */,
+				3E2F6EFB191FAA2F00B688C4 /* sqlite3.c */,
+				3E2F6EFC191FAA2F00B688C4 /* sqlite3.h */,
+				3E2F6EFD191FAA2F00B688C4 /* sqlite3ext.h */,
+			);
+			path = sqlite;
+			sourceTree = "<group>";
+		};
+		3E2F6F06191FADA900B688C4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3E2F6F02191FAD9F00B688C4 /* ContentValue.cpp */,
+				3E2F6F03191FAD9F00B688C4 /* ContentValue.h */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 		503AE0F517EB97AB00D1A890 /* Icons */ = {
@@ -764,6 +804,10 @@
 				8CE146F1191F315E00D26EDC /* LoadingScene.cpp in Sources */,
 				8CCC1A34191F742C0051A38F /* GameLayer.cpp in Sources */,
 				8CF77F8F191F87D10096A7A1 /* GameWorld.cpp in Sources */,
+				3E2F6EF7191FA8B400B688C4 /* SqliteUtil.cpp in Sources */,
+				3E2F6EFE191FAA2F00B688C4 /* shell.c in Sources */,
+				3E2F6F00191FAA2F00B688C4 /* sqlite3.c in Sources */,
+				3E2F6F04191FAD9F00B688C4 /* ContentValue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,6 +822,10 @@
 				8CABEFD6191F2C48000292F3 /* MainMenuScene.cpp in Sources */,
 				8CE146F2191F315E00D26EDC /* LoadingScene.cpp in Sources */,
 				8CCC1A35191F742C0051A38F /* GameLayer.cpp in Sources */,
+				3E2F6EF8191FA8B400B688C4 /* SqliteUtil.cpp in Sources */,
+				3E2F6EFF191FAA2F00B688C4 /* shell.c in Sources */,
+				3E2F6F01191FAA2F00B688C4 /* sqlite3.c in Sources */,
+				3E2F6F05191FAD9F00B688C4 /* ContentValue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,7 +889,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMPRESS_PNG_FILES = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -862,7 +910,6 @@
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -874,7 +921,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMPRESS_PNG_FILES = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -893,7 +940,6 @@
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
